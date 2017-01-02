@@ -46,7 +46,7 @@
 		<property name="basePackage" value="com.test.dao" />
 	</bean>
 	
-	<bean id="switcher" class="com.foundation.dao.DataSourceSwitcher" >
+	<bean id="switcher" class="com.foundation.dynamic.dao.DataSourceSwitcher" >
 		<property name="slaves">
 			<list>
 				<value>slave1</value>
@@ -56,7 +56,7 @@
 		</property>
 	</bean>
 	
-	<bean id="dataSource" class="com.foundation.dao.DynamicDataSource">
+	<bean id="dataSource" class="com.foundation.dynamic.dao.DynamicDataSource">
 		<property name="switcher" ref="switcher"></property>
 		<property name="targetDataSources">
 			<map key-type="java.lang.String">
@@ -125,7 +125,7 @@
 
 
 	<!-- 根据方法名切换数据源 -->  
-    <bean id="dataSourceAdvice" class="com.foundation.dao.DataSourceAdvice" >
+    <bean id="dataSourceAdvice" class="com.foundation.dynamic.dao.DataSourceAdvice" >
     	<property name="switcher" ref="switcher"></property>
     	<property name="readMethodNames">
     		<list>
@@ -145,7 +145,7 @@
     
     <aop:config>  
         <aop:advisor
-            pointcut="execution(* com.foundation..*Service*.*(..))" order="1"  
+            pointcut="execution(* com.foundation.dynamic..dynamic.*Service*.*(..))" order="1"  
             advice-ref="dataSourceAdvice" />
     </aop:config>  
 </beans>
